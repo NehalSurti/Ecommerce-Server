@@ -1,0 +1,42 @@
+{
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "customer_app/build/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "admin_app/build/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "index.js"
+    },
+    {
+      "src": "/webhook",
+      "dest": "index.js"
+    },
+    {
+      "src": "/admin",
+      "dest": "admin_app/build/index.html"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "admin_app/build/index.html"
+    },
+    {
+      "src": "/",
+      "dest": "customer_app/build/index.html"
+    },
+    {
+      "src": "/(.+)",
+      "dest": "customer_app/build/$1"
+    }
+  ]
+}
