@@ -13,30 +13,5 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "index.js"
-    },
-    {
-      "src": "/webhook",
-      "dest": "index.js"
-    },
-    {
-      "src": "/admin",
-      "dest": "admin_app/build/index.html"
-    },
-    {
-      "src": "/admin/(.*)",
-      "dest": "admin_app/build/index.html"
-    },
-    {
-      "src": "/",
-      "dest": "customer_app/build/index.html"
-    },
-    {
-      "src": "/(.+)",
-      "dest": "customer_app/build/$1"
-    }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "index.js" }]
 }
