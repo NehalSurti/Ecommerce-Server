@@ -35,6 +35,10 @@
       "dest": "customer_app/build/index.html"
     },
     {
+      "src": "/(.*)",
+      "dest": "customer_app/build/index.html"
+    },
+    {
       "src": "/(.+)",
       "dest": "customer_app/build/$1"
     }
