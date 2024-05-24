@@ -26,7 +26,6 @@ mongoose
     console.log(err.message);
   });
 
-
 // TODO UPDATE ENDPOINT
 //Webhooks
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
@@ -57,6 +56,28 @@ app.post(
         order.paymentStatus = "received";
         await order.save();
 
+        break;
+      case "payment_intent.created":
+        const paymentIntentCreated = event.data.object;
+        // Then define and call a function to handle the event payment_intent.created
+        break;
+      case "payment_intent.canceled":
+        const paymentIntentCanceled = event.data.object;
+        // Then define and call a function to handle the event payment_intent.canceled
+        break;
+      case "payment_intent.processing":
+        const paymentIntentProcessing = event.data.object;
+        console.log("payment_intent.processing");
+        // Then define and call a function to handle the event payment_intent.processing
+        break;
+      case "payment_intent.payment_failed":
+        const paymentIntentPaymentFailed = event.data.object;
+        // Then define and call a function to handle the event payment_intent.payment_failed
+        break;
+      case "payment_intent.requires_action":
+        const paymentIntentRequiresAction = event.data.object;
+        console.log("payment_intent.requires_action");
+        // Then define and call a function to handle the event payment_intent.requires_action
         break;
       // ... handle other event types
       default:
