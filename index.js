@@ -63,20 +63,26 @@ app.post(
         break;
       case "payment_intent.canceled":
         const paymentIntentCanceled = event.data.object;
-        // Then define and call a function to handle the event payment_intent.canceled
+        const orderUpdate = await Order.findById(
+          paymentIntentCanceled.metadata.orderId
+        );
+        orderUpdate.paymentStatus = "canceled";
+        await orderUpdate.save();
         break;
       case "payment_intent.processing":
         const paymentIntentProcessing = event.data.object;
-        console.log("payment_intent.processing");
         // Then define and call a function to handle the event payment_intent.processing
         break;
       case "payment_intent.payment_failed":
         const paymentIntentPaymentFailed = event.data.object;
-        // Then define and call a function to handle the event payment_intent.payment_failed
+        const orderToUpdate = await Order.findById(
+          paymentIntentPaymentFailed.metadata.orderId
+        );
+        orderToUpdate.paymentStatus = "canceled";
+        await orderToUpdate.save();
         break;
       case "payment_intent.requires_action":
         const paymentIntentRequiresAction = event.data.object;
-        console.log("payment_intent.requires_action");
         // Then define and call a function to handle the event payment_intent.requires_action
         break;
       // ... handle other event types
