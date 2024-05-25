@@ -19,6 +19,31 @@ exports.createPaymentIntent = async (req, res) => {
   });
 
   res.send({
+    paymentIntentId: paymentIntent.id,
     clientSecret: paymentIntent.client_secret,
   });
+};
+
+exports.cancelPaymentIntent = async (req, res) => {
+  const { paymentIntentId } = req.body;
+
+  try {
+    const canceledPaymentIntent = await stripe.paymentIntents.cancel(
+      paymentIntentId
+    );
+    res.status(200).send({ success: true, canceledPaymentIntent });
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
+  }
+};
+
+exports.checkPaymentStatus = async (req, res) => {
+  const { paymentIntentId } = req.body;
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+    res.status(200).send({ status: paymentIntent.status });
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
+  }
 };

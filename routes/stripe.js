@@ -3,7 +3,8 @@ const stripeController = require("../controller/stripe");
 const router = express.Router();
 
 router
-//   .post("/payment", stripeController.stripePayment)
-  .post("/create-payment-intent", stripeController.createPaymentIntent);
+  .post("/create-payment-intent", stripeController.createPaymentIntent)
+  .post("/cancel-payment-intent", stripeController.cancelPaymentIntent)
+  .post("/check-payment-status", stripeController.checkPaymentStatus);
 
 module.exports = router;
